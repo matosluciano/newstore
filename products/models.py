@@ -1,8 +1,10 @@
 from django.db import models
 from .utils import unique_slug_generator
 from django.db.models.signals import pre_save
+
 #Custom queryset
 class ProductQuerySet(models.query.QuerySet):
+    
     def active(self):
         return self.filter(active = True)
 
@@ -18,7 +20,7 @@ class ProductManager(models.Manager):
         return self.get_queryset().active()
 
     def featured(self):
-        #return self.get_queryset().filter(featured = True)
+        #self.get_queryset().filter(featured = True)
         return self.get_queryset().featured()
 
     def get_by_id(self, id):
@@ -39,11 +41,14 @@ class Product(models.Model): #product_category
 
 
     objects = ProductManager()
+
+    def get_absolute_url(self):
+        return "/products/{slug}/".format(slug = self.slug)
     
     #python 3
     def __str__(self):
         return self.title
-    
+        
     #python 2
     def __unicode__(self):
         return self.title
