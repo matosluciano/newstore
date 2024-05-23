@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'search',
     'tags',
     'carts',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -92,7 +93,7 @@ WSGI_APPLICATION = 'newstore.wsgi.application'
 #}
 
 DATABASES = {
-    
+
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
