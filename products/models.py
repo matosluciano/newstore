@@ -1,6 +1,6 @@
 from django.db.models import Q
 from django.db import models
-from .utils import unique_slug_generator
+from newstore.utils import unique_slug_generator
 from django.db.models.signals import pre_save
 from django.urls import reverse
 
@@ -15,9 +15,8 @@ class ProductQuerySet(models.query.QuerySet):
 
     def search(self, query):
         lookups = (Q(title__contains = query) | 
-                   Q(description__contains = query) | 
-                   Q(price__contains = query) |
-                   Q(tag__title__icontains = query))
+                        Q(description__contains = query) | 
+                        Q(price__contains = query))
         return self.filter(lookups).distinct()
 
 class ProductManager(models.Manager):
@@ -43,7 +42,7 @@ class ProductManager(models.Manager):
 
 # Create your models here.
 class Product(models.Model): #product_category
-    title       = models.CharField(max_length=60)
+    title       = models.CharField(max_length=120)
     slug        = models.SlugField(blank = True, unique = True)
     description = models.TextField()
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=100.00)
